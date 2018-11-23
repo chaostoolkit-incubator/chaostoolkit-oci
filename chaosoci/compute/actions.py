@@ -15,7 +15,8 @@ def stop_instance(instance_id: str, force: bool = False,
                   secrets: Secrets = None) -> OCIResponse:
     """Stop a given Compute instance."""
     action = "SOFTSTOP"
-    client = oci_client(ComputeClient, configuration, secrets)
+    client = oci_client(ComputeClient, configuration, secrets,
+                        skip_deserialization=True)
 
     if force is True:
         action = "STOP"
