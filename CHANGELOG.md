@@ -4,6 +4,8 @@
 
 [Unreleased]: https://github.com/chaostoolkit-incubator/chaostoolkit-oci/compare/0.2.0...HEAD
 
+- Add the possibility of stopping random instances based on selected filters.
+
 ## [0.2.0][]
 
 [0.2.0]: https://github.com/chaostoolkit-incubator/chaostoolkit-oci/compare/0.1.0...0.2.0

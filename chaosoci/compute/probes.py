@@ -9,6 +9,8 @@ from chaoslib.exceptions import ActivityFailed
 
 from chaosoci import oci_client
 
+from .common import get_instances, filter_instances
+
 __all__ = ['count_instances']
 
 
@@ -31,55 +33,9 @@ def count_instances(filters: List[Dict[str, Any]], compartment_id: str = None,
                         skip_deserialization=False)
 
     filters = filters or None
-    instances = _get_instances(client, compartment_id)
+    instances = get_instances(client, compartment_id)
 
     if filters is not None:
-        return len(_filter_instances(instances, filters=filters))
+        return len(filter_instances(instances, filters=filters))
 
     return len(instances)
-
-
-def _get_instances(client: ComputeClient = None,
-                   compartment_id: str = None) -> List:
-    """Return a complete, unfiltered list of instances in the compartment."""
-    instances = []
-
-    instances_raw = client.list_instances(compartment_id=compartment_id)
-    instances.extend(instances_raw.data)
-    while instances_raw.has_next_page:
-        instances_raw = client.list_instances(compartment_id=compartment_id,
-                                              page=instances_raw.next_page)
-        instances.extend(instances_raw.data)
-
-    return instances
-
-
-def _filter_instances(instances: List = None,
-                      filters: Dict[str, Any] = None) -> List:
-    """Return only those instances that match the filters provided."""
-    instances = instances or None
-
-    if instances is None:
-        raise ActivityFailed('No instances were found.')
-
-    filters_set = {x for x in filters}
-    available_filters_set = {x for x in instances[0].attribute_map}
-
-    # Partial filtering may return instances we do not want. We avoid it.
-    if not filters_set.issubset(available_filters_set):
-        raise ActivityFailed('Some of the chosen filters were not found,'
-                             ' we cannot continue.')
-
-    # Walk the instances and find those that match the given filters.
-    filtered = []
-    for instance in instances:
-        sentinel = True
-        for attr, val in filters.items():
-            if val != getattr(instance, attr, None):
-                sentinel = False
-                break
-
-        if sentinel:
-            filtered.append(instance)
-
-    return filtered
