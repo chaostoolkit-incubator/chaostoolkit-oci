@@ -43,6 +43,28 @@ experiment file:
 
 That's it!
 
+Now, let us say we only want an action to be executed after probing that a given value is within 
+a desired threshold; simple enough, we need to add a probe to our experiment, as follows:
+
+```
+"type": "probe",
+"name": "count-the-number-of-instances",
+"tolerance": [2, 10],
+"provider": {
+    "type": "python",
+    "module": "chaosoci.compute.probes",
+    "func": "count_instances",
+    "arguments": {
+	"filters": {
+	    "region": "uk-london-1",
+	    "lifecycle_state": "RUNNING"
+	}
+    }
+}
+```
+
+For a list of available filters please refer to: [oci.core.models.Instance](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/api/core/models/oci.core.models.Instance.html#oci.core.models.Instance).
+
 Please explore the code to see existing probes and actions.
 
 ## Configuration

@@ -14,7 +14,7 @@ __all__ = ["__version__", "discover", "oci_client"]
 
 
 def oci_client(resource_name: str, configuration: Configuration = None,
-               secrets: Secrets = None):
+               secrets: Secrets = None, skip_deserialization: bool = False):
     """Create an oci configuration object"""
 
     # As secrets is attached to configuration in OCI, it is not used.
@@ -25,7 +25,8 @@ def oci_client(resource_name: str, configuration: Configuration = None,
     else:
         validate_config(configuration)
 
-    return resource_name(configuration, skip_deserialization=True)
+    return resource_name(configuration,
+                         skip_deserialization=skip_deserialization)
 
 
 def discover(discover_system: bool = True) -> Discovery:
