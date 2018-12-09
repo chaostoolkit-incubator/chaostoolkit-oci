@@ -65,7 +65,15 @@ a desired threshold; simple enough, we need to add a probe to our experiment, as
 
 For a list of available filters please refer to: [oci.core.models.Instance](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/api/core/models/oci.core.models.Instance.html#oci.core.models.Instance).
 
-Please explore the code to see existing probes and actions.
+### Exploring probes and actions
+
+In order to see which probes and actions are available, it is not necessary to dive into the source code.
+
+Instead, run the script in the scripts directory as follows:
+
+```./scripts/show_actions_and_probes.sh```
+
+The script will output the Service and Type (e.g. Compute and Actions) and subsequently, will print the actions with the parameters they receive, which will give you a clue as to how they can be used within the experiment.
 
 ## Configuration
 
