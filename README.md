@@ -35,7 +35,7 @@ experiment file:
         "module": "chaosoci.compute.actions",
         "func": "stop_instance",
         "arguments": {
-            "instance_id": "ocid1.instance.oc1.uk-london-1.abwgiljr4hngf7ktirgpp4ebl3w7fdarvhe6if4tu4r7y4fh3tsde7vbm5lq"
+            "instance_id": "ocid1.instance.oc1.uk-london-1.abwgiljr4hngf7ktirgpp4ebxxxxfdarvhe6if4tu4r7y4fh3tsde7vbm5lq"
         }
     }
 }
@@ -83,11 +83,11 @@ and the necessary api access pem files.
 
 ```
 [DEFAULT]
-user=ocid1.user.oc1..aaaaaaaabyneck4zsklp55y4ebgt2gvlwf7ypsz7hskluh3hpshfb3jelsew
-fingerprint=88:c8:92:44:cf:5b:f8:de:f9:f0:44:cf:da:54:a2:c6
+user=ocid1.user.oc1..aaaaaaaabyneck4zsklp55y4ebgt2gvlwxxxxxz7hskluh3hpshfb3jelsew
+fingerprint=88:c8:92:44:cf:5b:f8:de:f9:b0:cc:cc:da:54:a2:c6
 key_file=/home/user/.oci/oci_api_key.pem
-tenancy=ocid1.tenancy.oc1..aaaaaaaarx3oltzmcws24bsf2mp77h6vbqwieembc74s2gohnfjjanmedxqj
-compartment=ocid1.compartment.oc1..aaaaaaaaeaoardsao2cymuokft6crf6okik5uan4msovmdai44akwxje7tla
+tenancy=ocid1.tenancy.oc1..aaaaaaaarx3oltzmcws24bsf2mp77h6vbqwieexxxxxx2gohnfjjanmedxqj
+compartment=ocid1.compartment.oc1..aaaaaaaaeaoardsao2cymuokft6crfxxxxxxuan4msovmdai44akwxje7tla
 region=uk-london-1
 namespace=tenancyname
 ```
