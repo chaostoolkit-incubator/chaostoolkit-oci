@@ -10,15 +10,78 @@ extension to the [Chaos Toolkit][chaostoolkit].
 [probes]: http://chaostoolkit.org/reference/api/experiment/#probe
 [chaostoolkit]: http://chaostoolkit.org
 
-## Install
+[oci-configuration]: https://docs.cloud.oracle.com/iaas/Content/API/Concepts/apisigningkey.htm
+[oci-python-sdk]: https://docs.cloud.oracle.com/en-us/iaas/Content/API/SDKDocs/pythonsdk.htm
 
-This package requires Python 3.5+
+## Pre-requisites
 
-To be used from your experiment, this package must be installed in the Python
-environment where [chaostoolkit][] already lives.
+* Install Python 3.5+
+* Install pip
+
+## Create a virtual environment
+
+Create a local virtual environment where you can install dependencies:
 
 ```
-$ pip install -U chaostoolkit-oci
+python3 -m venv ~/.venvs/chaostk
+```
+
+Activate the environment:
+
+```
+source  ~/.venvs/chaostk/bin/activate
+```
+
+## Install dependencies
+
+If you intend to only __use__ this toolkit, install the following dependencies in your virtual environment:
+
+```
+pip install chaostoolkit
+pip install -U chaostoolkit-oci
+```
+
+If you intend to develop and contribute or use the latest from this repo, install the additional developer dependencies and point your environment to this directory:
+
+```
+pip install chaostoolkit
+pip install -r requirements-dev.txt -r requirements.txt
+python setup.py develop
+```
+
+Now, you can edit the files and they will be automatically be seen by your
+environment, even when running from the `chaos` command locally.
+
+Verify that the chaostoolkit has been installed properly:
+
+```
+chaos --version
+```
+
+## Discover capabilities and experiments
+
+```
+chaos discover --no-install chaostoolkit-oci
+```
+
+## Configuration
+
+### Credentials
+
+This extension uses the [oci-python-sdk][oci-python-sdk] library under the hood. It expects that you have properly [configured][oci-configuration] your environment to connect and authenticate with the OCI services.
+
+The easiest way of doing this is by having a ~/.oci directory that contains a config file 
+and the necessary api access pem files.
+
+```
+[DEFAULT]
+user=ocid1.user.oc1..aaaaaaaabyneck4zsklp55y4ebgxxxxxxx7ypsz7hskluh3hpshfb3jelsew
+fingerprint=00:ab:23:45:bc:6d:e7:fg:h8:i9:00:jk:lm:12:34:56
+key_file=/home/user/.oci/oci_api_key.pem
+tenancy=ocid1.tenancy.oc1..aaaaaaaarx3oltzmcws24bsfxxxxxxxxbqwieembc74s2gohnfjjanmedxqj
+compartment=ocid1.compartment.oc1..aaaaaaaaeaoardsao2cyxxxxxxxcrf6okik5uan4msovmdai44akwxje7tla
+region=uk-london-1
+namespace=tenancyname
 ```
 
 ## Usage
@@ -32,10 +95,10 @@ experiment file:
     "name": "stop-a-compute-instance",
     "provider": {
         "type": "python",
-        "module": "chaosoci.compute.actions",
+        "module": "chaosoci.core.compute.actions",
         "func": "stop_instance",
         "arguments": {
-            "instance_id": "ocid1.instance.oc1.uk-london-1.abwgiljr4hngf7ktirgpp4ebxxxxfdarvhe6if4tu4r7y4fh3tsde7vbm5lq"
+            "instance_id": "ocid1.instance.oc1.uk-london-1.abwgiljr4hngf7ktirgpp4ebl3w7fdarvhe6if4tu4r7y4fh3tsde7vbm5lq"
         }
     }
 }
@@ -52,7 +115,7 @@ a desired threshold; simple enough, we need to add a probe to our experiment, as
 "tolerance": [2, 10],
 "provider": {
     "type": "python",
-    "module": "chaosoci.compute.probes",
+    "module": "chaosoci.core.compute.probes",
     "func": "count_instances",
     "arguments": {
 	"filters": {
@@ -66,32 +129,6 @@ a desired threshold; simple enough, we need to add a probe to our experiment, as
 For a list of available filters please refer to: [oci.core.models.Instance](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/api/core/models/oci.core.models.Instance.html#oci.core.models.Instance).
 
 Please explore the code to see existing probes and actions.
-
-## Configuration
-
-### Credentials
-
-This extension uses the [oci-python-sdk][] library under the hood. This library expects
-that you have properly [configured][creds] your environment to connect and
-authenticate with the OCI services.
-
-[oci-python-sdk]: https://github.com/oracle/oci-python-sdk
-[creds]: https://docs.cloud.oracle.com/iaas/Content/API/Concepts/apisigningkey.htm
-
-The way of doing this is by having a ~/.oci directory that contains a config file 
-and the necessary api access pem files.
-
-```
-[DEFAULT]
-user=ocid1.user.oc1..aaaaaaaabyneck4zsklp55y4ebgt2gvlwxxxxxz7hskluh3hpshfb3jelsew
-fingerprint=88:c8:92:44:cf:5b:f8:de:f9:b0:cc:cc:da:54:a2:c6
-key_file=/home/user/.oci/oci_api_key.pem
-tenancy=ocid1.tenancy.oc1..aaaaaaaarx3oltzmcws24bsf2mp77h6vbqwieexxxxxx2gohnfjjanmedxqj
-compartment=ocid1.compartment.oc1..aaaaaaaaeaoardsao2cymuokft6crfxxxxxxuan4msovmdai44akwxje7tla
-region=uk-london-1
-namespace=tenancyname
-```
-
 
 ## Contribute
 
@@ -108,27 +145,6 @@ into the master branch of the repository. Please, make sure you can abide by
 the rules of the DCO before submitting a PR.
 
 [dco]: https://github.com/probot/dco#how-it-works
-
-### Develop
-
-If you wish to develop on this project, make sure to install the development
-dependencies. But first, [create a virtual environment][venv] and then install
-those dependencies.
-
-[venv]: http://chaostoolkit.org/reference/usage/install/#create-a-virtual-environment
-
-```console
-$ pip install -r requirements-dev.txt -r requirements.txt 
-```
-
-Then, point your environment to this directory:
-
-```console
-$ python setup.py develop
-```
-
-Now, you can edit the files and they will be automatically be seen by your
-environment, even when running from the `chaos` command locally.
 
 ### Test
 
