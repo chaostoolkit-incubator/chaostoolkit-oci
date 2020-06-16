@@ -13,11 +13,7 @@ from logzero import logger
 from oci.config import from_file
 from oci.core import ComputeClient
 
-<<<<<<< HEAD:chaosoci/core/compute/actions.py
 from .common import (filter_instances,
-=======
-from .common import (filter_instances, 
->>>>>>> 6e8fedbf05f43a035c2b7de2bbd7010aa426f903:chaosoci/compute/actions.py
                      get_instances)
 
 __all__ = ["stop_instance", "stop_random_instance"]
