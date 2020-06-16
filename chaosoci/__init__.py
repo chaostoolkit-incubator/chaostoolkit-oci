@@ -53,8 +53,8 @@ def load_exported_activities() -> List[DiscoveredActivities]:
     Extract metadata from actions and probes exposed by this extension.
     """
     activities = []
-    activities.extend(discover_actions("chaosoci.compute.actions"))
-    activities.extend(discover_probes("chaosoci.compute.probes"))
+    activities.extend(discover_actions("chaosoci.core.compute.actions"))
+    activities.extend(discover_probes("chaosoci.core.compute.probes"))
     return activities
 
 

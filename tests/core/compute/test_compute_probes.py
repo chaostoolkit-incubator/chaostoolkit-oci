@@ -2,12 +2,12 @@
 from unittest import TestCase as T
 from unittest.mock import MagicMock, patch
 
-from chaosoci.compute.probes import count_instances
+from chaosoci.core.compute.probes import count_instances
 
 
-@patch('chaosoci.compute.probes.filter_instances', autospec=True)
-@patch('chaosoci.compute.probes.get_instances', autospec=True)
-@patch('chaosoci.compute.probes.oci_client', autospec=True)
+@patch('chaosoci.core.compute.probes.filter_instances', autospec=True)
+@patch('chaosoci.core.compute.probes.get_instances', autospec=True)
+@patch('chaosoci.core.compute.probes.oci_client', autospec=True)
 def test_count_instances(oci_client, get_instances, filter_instances):
     compute_client = MagicMock()
     oci_client.return_value = compute_client
@@ -21,9 +21,9 @@ def test_count_instances(oci_client, get_instances, filter_instances):
                                         filters=filters)
 
 
-@patch('chaosoci.compute.probes.filter_instances', autospec=True)
-@patch('chaosoci.compute.probes.get_instances', autospec=True)
-@patch('chaosoci.compute.probes.oci_client', autospec=True)
+@patch('chaosoci.core.compute.probes.filter_instances', autospec=True)
+@patch('chaosoci.core.compute.probes.get_instances', autospec=True)
+@patch('chaosoci.core.compute.probes.oci_client', autospec=True)
 def test_count_instances_ret_int(oci_client, get_instances, filter_instances):
     compute_client = MagicMock()
     oci_client.return_value = compute_client

@@ -3,6 +3,7 @@ from typing import Any, Dict, List
 
 from chaoslib.exceptions import ActivityFailed
 from chaoslib.types import Configuration, Secrets
+
 from oci.config import from_file
 from oci.core import ComputeClient
 
