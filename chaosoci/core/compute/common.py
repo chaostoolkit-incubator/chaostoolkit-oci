@@ -1,15 +1,18 @@
+# -*- coding: utf-8 -*-
+__all__ = ["get_instances", "filter_instances"]
+
 from typing import Any, Dict, List
 
 from chaoslib.exceptions import ActivityFailed
+
+from logzero import logger
+
 from oci.core import ComputeClient
-
-from chaosoci.types import OCIInstance
-
-__all__ = ["get_instances", "filter_instances"]
+from oci.core.models import Instance
 
 
 def get_instances(client: ComputeClient = None,
-                  compartment_id: str = None) -> List[OCIInstance]:
+                  compartment_id: str = None) -> List[Instance]:
     """Return a complete, unfiltered list of instances in the compartment."""
     instances = []
 
@@ -23,8 +26,8 @@ def get_instances(client: ComputeClient = None,
     return instances
 
 
-def filter_instances(instances: List[OCIInstance] = None,
-                     filters: Dict[str, Any] = None) -> List[OCIInstance]:
+def filter_instances(instances: List[Instance] = None,
+                     filters: Dict[str, Any] = None) -> List[Instance]:
     """Return only those instances that match the filters provided."""
     instances = instances or None
 

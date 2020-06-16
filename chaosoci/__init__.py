@@ -9,7 +9,7 @@ from chaoslib.types import (Discovery, DiscoveredActivities,
                             DiscoveredSystemInfo, Configuration, Secrets)
 from logzero import logger
 
-__version__ = '0.1.0'
+__version__ = '0.2.0'
 __all__ = ["__version__", "discover", "oci_client"]
 
 
@@ -53,8 +53,8 @@ def load_exported_activities() -> List[DiscoveredActivities]:
     Extract metadata from actions and probes exposed by this extension.
     """
     activities = []
-    activities.extend(discover_actions("chaosoci.compute.actions"))
-    activities.extend(discover_probes("chaosoci.compute.probes"))
+    activities.extend(discover_actions("chaosoci.core.compute.actions"))
+    activities.extend(discover_probes("chaosoci.core.compute.probes"))
     return activities
 
 

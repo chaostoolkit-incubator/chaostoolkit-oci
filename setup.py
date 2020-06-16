@@ -35,7 +35,7 @@ url = 'http://chaostoolkit.org'
 license = 'Apache License Version 2.0'
 packages = [
     'chaosoci',
-    'chaosoci.compute'
+    'chaosoci.core.compute'
 ]
 
 needs_pytest = set(['pytest', 'test']).intersection(sys.argv)

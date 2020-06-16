@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 from unittest.mock import MagicMock, patch
 
-from chaosoci.compute.actions import stop_instance, stop_random_instance
+from chaosoci.core.compute.actions import stop_instance, stop_random_instance
 
-
-@patch('chaosoci.compute.actions.oci_client', autospec=True)
+@patch('chaosoci.core.compute.actions.oci_client', autospec=True)
 def test_stop_instance(oci_client):
     compute_client = MagicMock()
     oci_client.return_value = compute_client
@@ -15,9 +14,9 @@ def test_stop_instance(oci_client):
                                                       action=action)
 
 
-@patch('chaosoci.compute.actions.filter_instances', autospec=True)
-@patch('chaosoci.compute.actions.get_instances', autospec=True)
-@patch('chaosoci.compute.actions.oci_client', autospec=True)
+@patch('chaosoci.core.compute.actions.filter_instances', autospec=True)
+@patch('chaosoci.core.compute.actions.get_instances', autospec=True)
+@patch('chaosoci.core.compute.actions.oci_client', autospec=True)
 def test_filter_stop_random_instances(oci_client, get_instances,
                                       filter_instances):
     instance = MagicMock()
@@ -35,9 +34,9 @@ def test_filter_stop_random_instances(oci_client, get_instances,
                                         filters=filters)
 
 
-@patch('chaosoci.compute.actions.filter_instances', autospec=True)
-@patch('chaosoci.compute.actions.get_instances', autospec=True)
-@patch('chaosoci.compute.actions.oci_client', autospec=True)
+@patch('chaosoci.core.compute.actions.filter_instances', autospec=True)
+@patch('chaosoci.core.compute.actions.get_instances', autospec=True)
+@patch('chaosoci.core.compute.actions.oci_client', autospec=True)
 def test_stop_random_instances(oci_client, get_instances, filter_instances):
     compute_client = MagicMock()
     instance = MagicMock()

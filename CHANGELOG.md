@@ -17,4 +17,11 @@
 
 ### Added
 
--   Initial release
+Actions:
+
+- stop instance
+- stop random instance
+
+Probes:
+
+- count instances

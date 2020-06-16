@@ -4,13 +4,17 @@ from typing import Any, Dict, List
 
 from chaoslib.exceptions import ActivityFailed
 from chaoslib.types import Configuration, Secrets
-from oci.config import from_file
-from oci.core import ComputeClient
 
 from chaosoci import oci_client
 from chaosoci.types import OCIResponse
 
-from .common import filter_instances, get_instances
+from logzero import logger
+
+from oci.config import from_file
+from oci.core import ComputeClient
+
+from .common import (filter_instances,
+                     get_instances)
 
 __all__ = ["stop_instance", "stop_random_instance"]
 
