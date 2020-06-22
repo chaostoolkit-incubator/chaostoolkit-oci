@@ -1,2 +1,3 @@
-oci
-chaostoolkit-lib>=1.9
+oci>2.16
+chaostoolkit>=1.4
+chaostoolkit-lib>=1.10
