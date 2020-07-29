@@ -1,5 +1,8 @@
 #!/usr/bin/env python
+# Copyright 2020, Oracle Corporation and/or its affiliates.
 """chaostoolkit OCI builder and installer"""
+
+from chaosoci import __version__
 
 import sys
 import io
@@ -7,7 +10,7 @@ import io
 import setuptools
 
 sys.path.insert(0, ".")
-from chaosoci import __version__
+
 sys.path.remove(".")
 
 name = 'chaostoolkit-oci'
@@ -35,7 +38,8 @@ url = 'http://chaostoolkit.org'
 license = 'Apache License Version 2.0'
 packages = [
     'chaosoci',
-    'chaosoci.core.compute'
+    'chaosoci.core.compute',
+    'chaosoci.core.networking'
 ]
 
 needs_pytest = set(['pytest', 'test']).intersection(sys.argv)
@@ -43,11 +47,11 @@ pytest_runner = ['pytest_runner'] if needs_pytest else []
 
 test_require = []
 with io.open('requirements-dev.txt') as f:
-    test_require = [l.strip() for l in f if not l.startswith('#')]
+    test_require = [line.strip() for line in f if not line.startswith('#')]
 
 install_require = []
 with io.open('requirements.txt') as f:
-    install_require = [l.strip() for l in f if not l.startswith('#')]
+    install_require = [line.strip() for line in f if not line.startswith('#')]
 
 setup_params = dict(
     name=name,
