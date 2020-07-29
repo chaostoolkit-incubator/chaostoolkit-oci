@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# Copyright 2020, Oracle Corporation and/or its affiliates.
+
 from typing import List
 
 from oci.config import from_file, validate_config
@@ -55,6 +57,10 @@ def load_exported_activities() -> List[DiscoveredActivities]:
     activities = []
     activities.extend(discover_actions("chaosoci.core.compute.actions"))
     activities.extend(discover_probes("chaosoci.core.compute.probes"))
+
+    activities.extend(discover_actions("chaosoci.core.networking.actions"))
+    activities.extend(discover_probes("chaosoci.core.networking.probes"))
+    activities.extend(discover_probes("chaosoci.core.networking.rollbacks"))
     return activities
 
 
