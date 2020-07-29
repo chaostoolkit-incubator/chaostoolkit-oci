@@ -11,7 +11,7 @@ extension to the [Chaos Toolkit][chaostoolkit].
 [chaostoolkit]: http://chaostoolkit.org
 [contributing]: ./docs/dev/contribute.md
 [experiments]: ./docs/use/experiments.md
-[install chaostoolkit-oci]: ./docs/chaostoolkit.md
+[install chaostoolkit-oci]: ./docs/setup/chaostoolkit.md
 [keys and ocids]: https://docs.cloud.oracle.com/iaas/Content/API/Concepts/apisigningkey.htm
 [oci]: ./docs/setup/oci.md
 [oci config]: https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/sdkconfig.htm

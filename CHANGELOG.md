@@ -2,14 +2,28 @@
 
 ## [Unreleased][]
 
-[Unreleased]: https://github.com/chaostoolkit-incubator/chaostoolkit-oci/compare/0.1.0...HEAD
+[Unreleased]: https://github.com/chaostoolkit-incubator/chaostoolkit-oci/compare/0.2.0...HEAD
 
--   Stop random instance, allowing to do so in terms of the requested filters.
+## [0.2.0][]
+
+[0.2.0]: https://github.com/chaostoolkit-incubator/chaostoolkit-oci/tree/0.2.0
 
 ### Added
 
--   Probe to count the number of instances in the compartment with the possibility of added filters.
--   Associated documentation on how to use the probe.
+Actions:
+
+- Delete route table by ID
+- Delete route tables using filter
+
+Probes:
+
+- Count route tables
+
+Other:
+
+-   Updated/organized documentation
+-   Stop random instance added filters.
+-   Probe to count instances added filters.
 
 ## [0.1.0][]
 
@@ -19,9 +33,9 @@
 
 Actions:
 
-- stop instance
-- stop random instance
+- Stop instance
+- Stop random instance
 
 Probes:
 
-- count instances
+- Count instances
