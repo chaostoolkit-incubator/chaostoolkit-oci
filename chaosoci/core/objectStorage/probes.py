@@ -9,16 +9,16 @@ from oci.core import ComputeClient, ComputeManagementClient
 
 from chaosoci import oci_client
 
-from .common import filter_instances, get_instances, get_instance_pools
+__all__ = ['count_buckets', 'count_objects']
 
-__all__ = ['count_instances', 'count_instance_pools']
+from chaosoci.core.objectStorage.common import get_buckets, filter_buckets, filter_obstore_objects, get_objects
 
 
-def count_instances(filters: List[Dict[str, Any]], compartment_id: str = None,
+def count_buckets(filters: List[Dict[str, Any]], compartment_id: str = None,
                     configuration: Configuration = None,
                     secrets: Secrets = None) -> int:
     """
-    Return the number of instances in accordance with the given filters.
+    Return the number of buckets in accordance with the given filters.
 
     Please refer to: https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/api/core/models/oci.core.models.Instance.html#oci.core.models.Instance
 
@@ -34,19 +34,19 @@ def count_instances(filters: List[Dict[str, Any]], compartment_id: str = None,
                         skip_deserialization=False)
 
     filters = filters or None
-    instances = get_instances(client, compartment_id)
+    buckets = get_buckets(client, compartment_id)
 
     if filters is not None:
-        return len(filter_instances(instances, filters=filters))
+        return len(filter_buckets(buckets, filters=filters))
 
-    return len(instances)
+    return len(buckets)
 
 
-def count_instance_pools(filters: List[Dict[str, Any]], compartment_id: str = None,
+def count_objects(filters: List[Dict[str, Any]], compartment_id: str = None,
                          configuration: Configuration = None,
                          secrets: Secrets = None) -> int:
     """
-    Return the number of instance pools in accordance with the given filters.
+    Return the number of objects in accordance with the given filters.
 
     Please refer to: https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/api/core/models/oci.core.models.InstancePool.html#oci.core.models.Instance
 
@@ -62,9 +62,9 @@ def count_instance_pools(filters: List[Dict[str, Any]], compartment_id: str = No
                         skip_deserialization=False)
 
     filters = filters or None
-    instance_pools = get_instance_pools(client, compartment_id)
+    objects = get_objects(client, compartment_id)
 
     if filters is not None:
-        return len(filter_instances(instance_pools, filters=filters))
+        return len(filter_obstore_objects(objects, filters=filters))
 
-    return len(instance_pools)
+    return len(objects)
