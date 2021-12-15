@@ -9,14 +9,14 @@ from oci.core import ComputeClient, ComputeManagementClient
 
 from chaosoci import oci_client
 
-from .common import filter_instances, get_instances, get_instance_pools
+from .common import get_load_balancers, get_backend_sets, filter_load_balancers
 
-__all__ = ['count_instances', 'count_instance_pools']
+__all__ = ['count_load_bal', 'count_backend_sets']
 
 
-def count_instances(filters: List[Dict[str, Any]], compartment_id: str = None,
-                    configuration: Configuration = None,
-                    secrets: Secrets = None) -> int:
+def count_load_bal(filters: List[Dict[str, Any]], compartment_id: str = None,
+                   configuration: Configuration = None,
+                   secrets: Secrets = None) -> int:
     """
     Return the number of instances in accordance with the given filters.
 
@@ -34,37 +34,31 @@ def count_instances(filters: List[Dict[str, Any]], compartment_id: str = None,
                         skip_deserialization=False)
 
     filters = filters or None
-    instances = get_instances(client, compartment_id)
+    instances = get_load_balancers(client, compartment_id)
 
     if filters is not None:
-        return len(filter_instances(instances, filters=filters))
+        return len(filter_load_balancers(instances, filters=filters))
 
     return len(instances)
 
 
-def count_instance_pools(filters: List[Dict[str, Any]], compartment_id: str = None,
-                         configuration: Configuration = None,
-                         secrets: Secrets = None) -> int:
-    """
-    Return the number of instance pools in accordance with the given filters.
+def count_backend_sets(filters: List[Dict[str, Any]], loadbalancer_id: str = None,
+                       configuration: Configuration = None,
+                       secrets: Secrets = None) -> int:
 
-    Please refer to: https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/api/core/models/oci.core.models.InstancePool.html#oci.core.models.Instance
+    loadbalancer_id = loadbalancer_id or from_file().get('load_balancer')
 
-    for details on the available filters under the 'parameters' section.
-    """  # noqa: E501
-    compartment_id = compartment_id or from_file().get('compartment')
-
-    if compartment_id is None:
+    if loadbalancer_id is None:
         raise ActivityFailed('We have not been able to find a compartment,'
                              ' without one, we cannot continue.')
 
-    client = oci_client(ComputeManagementClient, configuration, secrets,
+    client = oci_client(ComputeClient, configuration, secrets,
                         skip_deserialization=False)
 
     filters = filters or None
-    instance_pools = get_instance_pools(client, compartment_id)
+    backend_sets = get_backend_sets(client, loadbalancer_id)
 
     if filters is not None:
-        return len(filter_instances(instance_pools, filters=filters))
+        return len(filter_load_balancers(backend_sets, filters=filters))
 
-    return len(instance_pools)
+    return len(backend_sets)
